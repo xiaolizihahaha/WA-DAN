@@ -21,8 +21,8 @@ beta = 5e-2                 # param for update feature centers
 tag = 'mydataset'                # 'aircraft', 'bird', 'car', or 'dog'
 
 # saving directory of .ckpt models
-save_dir = './FGVC/CUB-200-2011/ckpt - 1/'
-model_name = 'model_epoch_4.ckpt'
+save_dir = './FGVC/CUB-200-2011/ckpt - 2/'
+model_name = 'model_epoch_7.ckpt'
 log_name = 'train.log'
 
 # checkpoint model for resume training

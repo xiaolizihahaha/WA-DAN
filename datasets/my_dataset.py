@@ -17,9 +17,10 @@ import torch.nn.functional as F
 import torchvision.transforms as transforms
 
 
-DATAPATH = 'D:\\project\\WS-DAN\\datasets\\CUB_200_2011(V1)'
+DATAPATH = 'D:\\project\\WS-DAN\\datasets\\CUB_200_2011(V2)'
 image_path = {}
 image_label = {}
+mask_path = {}
 
 
 class MyDataset(Dataset):
@@ -51,6 +52,11 @@ class MyDataset(Dataset):
                 id, path = line.strip().split(' ')
                 image_path[id] = path
 
+        with open(os.path.join(DATAPATH, 'masks.txt')) as f:
+            for line in f.readlines():
+                id, path = line.strip().split(' ')
+                mask_path[id] = path
+
 
         # get image label from image_class_labels.txt
         with open(os.path.join(DATAPATH, 'image_class_labels.txt')) as f:
@@ -77,9 +83,11 @@ class MyDataset(Dataset):
         # print(self.image_id)
         self.image_label = image_label
         self.image_path = image_path
+        self.mask_path = mask_path
 
         # print(len(self.image_label))   # 11788
         # print(len(self.image_path))  # 11788
+        # print(len(self.mask_path))  # 11788
 
 
 
@@ -98,10 +106,18 @@ class MyDataset(Dataset):
         image = Image.open(os.path.join(DATAPATH, 'images', self.image_path[image_id])).convert('RGB')  # (C, H, W)
         image = self.transform(image)
 
+        mask_img = Image.open(os.path.join(DATAPATH, self.mask_path[image_id])).convert('L')
+        new_size =(int(self.resize[0]), int(self.resize[1]))
+        mask_img = mask_img.resize(new_size)
+        mask_np = np.array(mask_img)
+        mask_np_bin = mask_np == 0  # 原图masks反转，值为0的区域为True，255的区域为False
+        mask_tensor = torch.tensor(mask_np_bin, dtype=torch.bool)  # 转换为 PyTorch 张量
+        mask_tensor = mask_tensor.unsqueeze(0)  # 在通道维度上增加一个维度
+
 
         # return image and label
-
-        return image, self.image_label[image_id] - 1  # count begin from zero
+        # print(mask_tensor.shape, image.shape)
+        return mask_tensor, image, self.image_label[image_id] - 1  # count begin from zero
 
     def __len__(self):
         return len(self.image_id)

@@ -81,8 +81,8 @@ def filter_and_strip_prefix(filename, numbers):
     return result
 
 
-filtered_numbers = filter_number1_by_number2('D:\\project\\WS-DAN\\datasets\\CUB_200_2011(V1)\\train_test_split.txt')  # “测试集”索引
-filtered_data = filter_and_strip_prefix('D:\\project\\WS-DAN\\datasets\\CUB_200_2011(V1)\\images.txt', filtered_numbers)
+filtered_numbers = filter_number1_by_number2('D:\\project\\WS-DAN\\datasets\\CUB_200_2011(V2)\\train_test_split.txt')  # “测试集”索引
+filtered_data = filter_and_strip_prefix('D:\\project\\WS-DAN\\datasets\\CUB_200_2011(V2)\\images.txt', filtered_numbers)
 
 
 
@@ -248,10 +248,11 @@ def train(**kwargs):
     all_predictions_crop = []
     all_predictions_drop = []
 
-    for i, (X, y) in enumerate(data_loader):
+    for i, (m, X, y) in enumerate(data_loader):
         optimizer.zero_grad()
 
         # obtain data for training
+        m = m.to(device)
         X = X.to(device)
         y = y.to(device)
 
@@ -272,7 +273,7 @@ def train(**kwargs):
             # print("crop")
             # print(X.shape)            # torch.Size([12, 3, 448, 448])
             # print( attention_map[:, :1, :, :].shape)       # torch.Size([12, 1, 14, 14])
-            crop_images = batch_augment(X, attention_map[:, :1, :, :], mode='crop', theta=(0.4, 0.6), padding_ratio=0.1)
+            crop_images = batch_augment(m, X, attention_map[:, :1, :, :], mode='crop', theta=(0.4, 0.6), padding_ratio=0.1)
 
         # crop images forward
         y_pred_crop, _, _ = net(crop_images)
@@ -284,7 +285,7 @@ def train(**kwargs):
             # print("drop")
             # print(X.shape)      # torch.Size([12, 3, 448, 448])
             # print( attention_map[:, 1:, :, :].shape)      # torch.Size([12, 1, 14, 14])
-            drop_images = batch_augment(X, attention_map[:, 1:, :, :], mode='drop', theta=(0.2, 0.5))
+            drop_images = batch_augment(m, X, attention_map[:, 1:, :, :], mode='drop', theta=(0.2, 0.5))
 
         # drop images forward
         y_pred_drop, _, _ = net(drop_images)

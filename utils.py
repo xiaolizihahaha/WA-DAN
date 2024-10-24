@@ -190,12 +190,13 @@ class ModelCheckpoint(Callback):
 ##################################
 # augment function
 ##################################
-def batch_augment(images, attention_map, mode='crop', theta=0.5, padding_ratio=0.1):
+def batch_augment(masks, images, attention_map, mode='crop', theta=0.5, padding_ratio=0.1):
     batches, _, imgH, imgW = images.size()
 
     if mode == 'crop':
         crop_images = []
         for batch_index in range(batches):
+            mask_tensor = masks[batch_index:batch_index + 1]
             atten_map = attention_map[batch_index:batch_index + 1]
             if isinstance(theta, tuple):
                 theta_c = random.uniform(*theta) * atten_map.max()
@@ -206,6 +207,7 @@ def batch_augment(images, attention_map, mode='crop', theta=0.5, padding_ratio=0
             # print(crop_mask.shape)
             # print(mask_tensor.shape)
 
+            crop_mask = crop_mask & mask_tensor  # 只保留 mask 为True的部分
             nonzero_indices = torch.nonzero(crop_mask[0, 0, ...])  # 根据掩码中的非零值（nonzero_indices），找到要保留的小块。这个区域会依据 padding_ratio 稍微扩展一些，以避免裁剪过于紧凑。
 
             height_min = max(int(nonzero_indices[:, 0].min().item() - padding_ratio * imgH), 0)

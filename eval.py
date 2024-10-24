@@ -109,8 +109,8 @@ def main():
                              num_workers=2, pin_memory=True)
     
     name = 'test'  # train0 train val test
-    filtered_numbers = filter_number1_by_number2('D:\\project\\WS-DAN\\datasets\\CUB_200_2011(V1)\\train_test_split(' + name + ').txt')  # “测试集”索引
-    filtered_data = filter_and_strip_prefix('D:\\project\\WS-DAN\\datasets\\CUB_200_2011(V1)\\images.txt', filtered_numbers)
+    filtered_numbers = filter_number1_by_number2('D:\\project\\WS-DAN\\datasets\\CUB_200_2011(V2)\\train_test_split(' + name + ').txt')  # “测试集”索引
+    filtered_data = filter_and_strip_prefix('D:\\project\\WS-DAN\\datasets\\CUB_200_2011(V2)\\images.txt', filtered_numbers)
 
     # print(len(filtered_numbers))
     # print(len(filtered_data))
@@ -158,7 +158,8 @@ def main():
         pbar.set_description('Validation')
         # combined_string = ""
         # batch_info1 = ""
-        for i, (X, y) in enumerate(test_loader):
+        for i, (m, X, y) in enumerate(test_loader):
+            m = m.to(device)
             X = X.to(device)
             y = y.to(device)
 
@@ -166,7 +167,7 @@ def main():
             y_pred_raw, _, attention_maps = net(X)
 
             # Augmentation with crop_mask
-            crop_image = batch_augment(X, attention_maps, mode='crop', theta=0.1, padding_ratio=0.05)
+            crop_image = batch_augment(m, X, attention_maps, mode='crop', theta=0.1, padding_ratio=0.05)
 
             y_pred_crop, _, _ = net(crop_image)
             y_pred = (y_pred_raw + y_pred_crop) / 2.
