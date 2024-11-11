@@ -3,3 +3,5 @@
 *.ckpt
 *.png
 *.jpg
+*.txt
+*.xlsx

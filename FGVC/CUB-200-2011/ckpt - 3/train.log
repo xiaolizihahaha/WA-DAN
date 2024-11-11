@@ -1,0 +1,6 @@
+2024-11-07 11:12:57,596: INFO: [resnet.py:183]: ResNet: All params loaded
+2024-11-07 11:12:57,630: INFO: [wsdan.py:97]: WSDAN: using resnet50 as feature extractor, num_classes: 2, num_attentions: 32
+2024-11-07 11:12:57,759: INFO: [train.py:1015]: Network weights save to ./FGVC/CUB-200-2011/ckpt - 3/
+2024-11-07 11:12:57,799: INFO: [train.py:1048]: Start training: Total epochs: 160, Batch size: 12, Training size: 10987, Validation size: 1066
+2024-11-07 11:12:57,799: INFO: [train.py:1050]: 
+2024-11-07 11:12:57,800: INFO: [train.py:1058]: Epoch 001, Learning Rate 0.001

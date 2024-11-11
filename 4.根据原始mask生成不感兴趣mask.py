@@ -8,6 +8,7 @@ import cv2
 import torch
 import torch.nn.functional as F
 import numpy as np
+from PIL import Image
 
 
 
@@ -46,44 +47,52 @@ def generate_mask2(point):
 
     return mask
 
-# 单个举例
-# mat_file = '010-BJBA-00010-WHL-201709281420-D.mat'
-# mat = scipy.io.loadmat('D:\\project\\BBN\\mat-all\\' + mat_file)
+# # 单个举例
+# mat_file = 'P23001A_0000118-高美丽-202408191118-D-R.mat'
+# mat = scipy.io.loadmat('D:\\data\\mats-all\\' + mat_file)
+
 # mask = np.round(np.clip(mat['Mms'] * 255, 0, 255))
 # mask1 = generate_mask1(mask)
-# mask2 = generate_mask2(mat['BreastPoint'])
-# cv2.imshow("m1", mask)
-# cv2.imshow("m2",mask1)
-# cv2.imshow("m3",mask2)
-# # 叠加两个mask
-# combined_mask = cv2.bitwise_or(mask1, mask2)
+# if len(mat['BreastPoint']) != 0:
+#     mask2 = generate_mask2(mat['BreastPoint'])
+
+#     # 叠加两个mask
+#     combined_mask = cv2.bitwise_or(mask1, mask2)
+# else:
+#     combined_mask = mask1
+# # # cv2.imshow("m1", mask)
+# # # cv2.imshow("m2",mask1)
+# # # cv2.imshow("m3",mask2)
 # cv2.imshow("m4",combined_mask)
 # cv2.waitKey(0)
 
 
-# # 批量处理
-# import os
-# filePath = 'D:\\project\\BBN\\mat-all'
-# files = os.listdir(filePath)
+# 批量处理
+import os
+filePath = 'D:\\data\\mats-all'
+files = os.listdir(filePath)
 
-# # mat_file = '010-BJBA-00010-WHL-201709281420-D.mat'
-# for mat_file in files:
-#     mat = scipy.io.loadmat('D:\\project\\BBN\\mat-all\\' + mat_file)
-#     mask = np.round(np.clip(mat['Mms'] * 255, 0, 255))
+files = ['445-DGD-202405201133-D-L.mat', '5456-hlhjljhlv-202408171713-D-L.mat']
+for mat_file in files:
+    mat = scipy.io.loadmat('D:\\data\\mats-all\\' + mat_file)
+    mask = np.round(np.clip(mat['Mms'] * 255, 0, 255))
 
-#     mask1 = generate_mask1(mask)
-#     mask2 = generate_mask2(mat['BreastPoint'])
-#     combined_mask = cv2.bitwise_or(mask1, mask2)
+    mask1 = generate_mask1(mask)
+    if len(mat['BreastPoint']) != 0:
+        mask2 = generate_mask2(mat['BreastPoint'])
+        combined_mask = cv2.bitwise_or(mask1, mask2)
+    else:
+        combined_mask = mask1
+
+    combined_mask_image = Image.fromarray(combined_mask)
+    combined_mask_image.save(os.path.join('D:\\data\\masks-all(V2)', mat_file[:-4] + ".png"), format='PNG')
+    print(mat_file +  " finish!")
+    # cv2.waitKey(0)
 
 
-# # cv2.imshow("Mms", mask)
-#     cv2.imwrite('D:\\project\\BBN\\mask-all\\' + mat_file[:-4] + ".png", combined_mask)
-#     print(mat_file +  " finish!")
-# # cv2.waitKey(0)
 
 
-
-from PIL import Image
-i = Image.open('D:\\project\\BBN\\mask-all\\010-BJBA-00010-WHL-201709281420-D.png')
-print(i)
-print(type(i))
+# from PIL import Image
+# i = Image.open('D:\\project\\BBN\\mask-all\\010-BJBA-00010-WHL-201709281420-D.png')
+# print(i)
+# print(type(i))

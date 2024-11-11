@@ -1,5 +1,5 @@
 import pandas as pd
-df = pd.read_excel('D:\\project\\BBN\\total.xlsx')
+df = pd.read_excel('D:\\data\\total.xlsx')
 names = df['dcm_name'].values.tolist()
 tumor_nature = df['tumor_nature'].values.tolist()
 
@@ -9,33 +9,33 @@ import os
 import shutil
 import pandas as pd
 
-# def copy_images_based_on_dataframe(df, source_folder, target_folder):
-#     # 遍历 DataFrame 中的每一行
-#     for index, row in df.iterrows():
-#         file_name = row['dcm_name'][:-4] + ".png"  # 获取文件名
-#         target_subfolder = row['tumor_nature']  # 获取目标子文件夹名称
+def copy_images_based_on_dataframe(df, source_folder, target_folder):
+    # 遍历 DataFrame 中的每一行
+    for index, row in df.iterrows():
+        file_name = row['dcm_name'][:-4] + ".png"  # 获取文件名
+        target_subfolder = row['tumor_nature']  # 获取目标子文件夹名称
 
-#         if row['tumor_nature'] == 0:
-#             target_subfolder = "000.no_tumor"
-#         else:
-#             target_subfolder = "001.tumor"
+        if row['tumor_nature'] == 0:
+            target_subfolder = "000.no_tumor"
+        else:
+            target_subfolder = "001.tumor"
 
-#         # 构建源文件和目标文件夹路径
-#         source_file_path = os.path.join(source_folder, file_name)
-#         target_subfolder_path = os.path.join(target_folder, target_subfolder)
+        # 构建源文件和目标文件夹路径
+        source_file_path = os.path.join(source_folder, file_name)
+        target_subfolder_path = os.path.join(target_folder, target_subfolder)
 
-#         # 创建目标子文件夹（如果不存在）
-#         os.makedirs(target_subfolder_path, exist_ok=True)
+        # 创建目标子文件夹（如果不存在）
+        os.makedirs(target_subfolder_path, exist_ok=True)
 
-#         # 复制文件到目标子文件夹
-#         shutil.copy2(source_file_path, target_subfolder_path)
-#         print(f"已复制: {file_name} 到 {target_subfolder_path}")
+        # 复制文件到目标子文件夹
+        shutil.copy2(source_file_path, target_subfolder_path)
+        print(f"已复制: {file_name} 到 {target_subfolder_path}")
 
 
-# source_folder = 'D:\\project\\BBN\\pngs-all(V2)'  # 替换为源文件夹路径
-# target_folder = 'D:\\project\\WS-DAN.PyTorch\\datasets\\CUB_200_2011\\images'  # 替换为目标文件夹路径
+source_folder = 'D:\\data\\pngs-all(V3)'  # 替换为源文件夹路径
+target_folder = 'D:\\project\\WS-DAN\\datasets\\CUB_200_2011(V3)\\images'  # 替换为目标文件夹路径
 
-# copy_images_based_on_dataframe(df, source_folder, target_folder)
+copy_images_based_on_dataframe(df, source_folder, target_folder)
 
 
 
@@ -63,7 +63,7 @@ import pandas as pd
 # file_lines = generate_file_lines1(num_lines)
 
 # # 将内容写入 txt 文件
-# with open("./datasets/CUB_200_2011/image_class_labels.txt", "w") as file:
+# with open("./datasets/CUB_200_2011(V2)/image_class_labels.txt", "w") as file:
 #     for line in file_lines:
 #         file.write(line + "\n")
 
@@ -91,7 +91,7 @@ import pandas as pd
 # file_lines = generate_file_lines2(num_lines)
 
 # # 将内容写入 txt 文件
-# with open("./datasets/CUB_200_2011/images.txt", "w") as file:
+# with open("./datasets/CUB_200_2011(V2)/images.txt", "w") as file:
 #     for line in file_lines:
 #         file.write(line + "\n")
 
@@ -106,14 +106,18 @@ import pandas as pd
 #     for i in range(1, n+1):
 #         # 动态生成每一行的内容
 
-#         if i <= 3798:
-#             c = '1'
-#             if names[i-1].endswith("-00-000000.dcm") or names[i-1].endswith("-L.dcm") or names[i-1].endswith("-R.dcm"):
-#                 c = '0'
-#         elif i <= 4815:
-#             c = '1'
-#         else:
-#             c = '1'
+#         if i <= 3798:  # train
+#             c = '0'
+#             # if names[i-1].endswith("-00-000000.dcm") or names[i-1].endswith("-L.dcm") or names[i-1].endswith("-R.dcm"):
+#             #     c = '0'
+#         elif i <= 4815:  # val
+#             c = '0'
+#         elif i <= 5881:  # test 1017 + 49
+#             c = '0'
+#         elif i <= 6468:  # test 587
+#             c = '0'
+#         else:            # test 5585
+#             c = '0'
 #         line = f"{i} {c}"
 #         lines.append(line)
 #     return lines
@@ -125,7 +129,7 @@ import pandas as pd
 # file_lines = generate_file_lines(num_lines)
 
 # # 将内容写入 txt 文件
-# with open("./datasets/CUB_200_2011/train_test_split(train).txt", "w") as file:
+# with open("./datasets/CUB_200_2011(V2)/train_test_split(all).txt", "w") as file:
 #     for line in file_lines:
 #         file.write(line + "\n")
 
@@ -153,7 +157,7 @@ import pandas as pd
 # file_lines = generate_file_lines6(num_lines)
 
 # # 将内容写入 txt 文件
-# with open("./datasets/CUB_200_2011/masks.txt", "w") as file:
+# with open("./datasets/CUB_200_2011(V2)/masks.txt", "w") as file:
 #     for line in file_lines:
 #         file.write(line + "\n")
 
