@@ -140,56 +140,64 @@ def add_small_noise(input_path, output_path, mean=0, std=5):
 
 
 
-df = pd.read_excel("D:\\project\\BBN\\train_have_nodiagnose_2.xlsx")
+df = pd.read_excel("D:\\data\\tttt1.xlsx")
 all_names = df['dcm_name'].values.tolist()
+# dcm_names = df[df['tumor_nature'] == 1]['dcm_name'].tolist()
+dcm_names = df['dcm_name'].tolist()
+# print(len(dcm_names))
 
-dcm_names = ['C19004A_0003627-Anonymized-202205231529-D-L.dcm', 'C20001D_0007253-Anonymized-202304271547-D-R.dcm', 'C20005B_0000194-Anonymized-202207181606-D-R.dcm', 'C19007A_0000109-Anonymized-202009030920-D-L.dcm', 'C19004A_0001700-Anonymized-202105211426-D-R.dcm', 'C20001D_0005899-Anonymized-202302280958-D-L.dcm', 'C20001D_0002870-Anonymized-202108061002-D-L.dcm', 'C20001D_0002593-Anonymized-202107271523-D-L.dcm', 'C20001D_0000121-Anonymized-202104221406-D-L.dcm', 'C19004A_0003144-Anonymized-202108241619-D-L.dcm', 'C20001D_0000068-Anonymized-202104211358-D-L.dcm', 'C19005B_0000346-Anonymized-202105281616-D-R.dcm', 'C19004A_0004252-Anonymized-202209211537-D-R.dcm', 'C19005C_0000280-Anonymized-202107211519-D-L.dcm', 'C20001D_0003443-Anonymized-202109061715-D-L.dcm', 'C20001D_0002651-Anonymized-202107290844-D-L.dcm', 'C20001D_0001174-Anonymized-202106041457-D-R.dcm', 'C16004_0000157-Anonymized-202106031202-D-L.dcm', 'C19004A_0004570-Anonymized-202211041453-D-R.dcm', 'C18005D_0000540-Anonymized-202208101459-D-L.dcm', 'C19004A_0004335-Anonymized-202209281624-D-L.dcm', 'C20001D_0003937-Anonymized-202110191404-D-L.dcm', 'C18005B_0000130-Anonymized-202206060825-D-L.dcm', 'C19005B_0000492-Anonymized-202106081343-D-R.dcm', 'C20001D_0002963-Anonymized-202108110941-D-R.dcm', 'C19004A_0002584-Anonymized-202107081641-D-L.dcm', 'C19004A_0004299-Anonymized-202209261637-D-R.dcm', 'C19004A_0002990-Anonymized-202108091614-D-R.dcm', 'C19007_0002338-Anonymized-202008201456-D-L.dcm', 'C16002A_0000462-Anonymized-202107190924-D-L.dcm', 'C20004C_0000080-Anonymized-202007081530-D-R.dcm', 'C16004B_0000284-Anonymized-202108201052-D-L.dcm', 'C16004B_0000201-Anonymized-202108170910-D-L.dcm', 'C16004B_0000099-Anonymized-202108111320-D-L.dcm', 'C18002A_0000108-Anonymized-202007091723-D-L.dcm', 'C20004_0000913-Anonymized-202005301058-D-L.dcm', 'C20003_0001064-Anonymized-202007201406-D-R.dcm', 'C16004_0000031-Anonymized-202105311122-D-R.dcm', 'C20004C_0000048-Anonymized-202007080919-D-L.dcm', 'C16002A_0000462-Anonymized-202107190927-D-R.dcm', 'C20004D_0000137-Anonymized-202007241640-D-L.dcm', 'C20004D_0000345-Anonymized-202007301753-D-L.dcm', 'C20004C_0000312-Anonymized-202007161121-D-L.dcm', 'C20004C_0000223-Anonymized-202007140851-D-L.dcm', 'C20004_0000208-Anonymized-202005201003-D-L.dcm', 'C20004B_0000467-Anonymized-202007041040-D-L.dcm', 'C20004_0000377-Anonymized-202005221602-D-R.dcm', 'C20004B_0000412-Anonymized-202007031050-D-R.dcm', 'C16002A_0000478-Anonymized-202107200840-D-R.dcm', 'C20003_0000814-Anonymized-202007071435-D-L.dcm', 'C20004D_0000119-Anonymized-202007241434-D-R.dcm', 'C20003_0000779-Anonymized-202007061434-D-R.dcm', 'C20003_0001064-Anonymized-202007201403-D-L.dcm', 'C20004D_0000321-Anonymized-202007301530-D-L.dcm', 'C20004_0000423-Anonymized-202005231141-D-L.dcm', 'C16004_0000548-Anonymized-202106141001-D-R.dcm', 'C19002B_0000354-Anonymized-202106211136-D-R.dcm', 'C20001_0000245-Anonymized-202006091231-D-L.dcm', 'C20004B_0000123-Anonymized-202006251004-D-R.dcm', 'C18004B_0000119-Anonymized-202108281153-D-R.dcm', 'C18006B_0000056-Anonymized-202007290824-D-R.dcm', 'C20001_0000277-Anonymized-202006101332-D-R.dcm']
+# dcm_names = ['C19004A_0003627-Anonymized-202205231529-D-L.dcm', 'C20001D_0007253-Anonymized-202304271547-D-R.dcm', 'C20005B_0000194-Anonymized-202207181606-D-R.dcm', 'C19007A_0000109-Anonymized-202009030920-D-L.dcm', 'C19004A_0001700-Anonymized-202105211426-D-R.dcm', 'C20001D_0005899-Anonymized-202302280958-D-L.dcm', 'C20001D_0002870-Anonymized-202108061002-D-L.dcm', 'C20001D_0002593-Anonymized-202107271523-D-L.dcm', 'C20001D_0000121-Anonymized-202104221406-D-L.dcm', 'C19004A_0003144-Anonymized-202108241619-D-L.dcm', 'C20001D_0000068-Anonymized-202104211358-D-L.dcm', 'C19005B_0000346-Anonymized-202105281616-D-R.dcm', 'C19004A_0004252-Anonymized-202209211537-D-R.dcm', 'C19005C_0000280-Anonymized-202107211519-D-L.dcm', 'C20001D_0003443-Anonymized-202109061715-D-L.dcm', 'C20001D_0002651-Anonymized-202107290844-D-L.dcm', 'C20001D_0001174-Anonymized-202106041457-D-R.dcm', 'C16004_0000157-Anonymized-202106031202-D-L.dcm', 'C19004A_0004570-Anonymized-202211041453-D-R.dcm', 'C18005D_0000540-Anonymized-202208101459-D-L.dcm', 'C19004A_0004335-Anonymized-202209281624-D-L.dcm', 'C20001D_0003937-Anonymized-202110191404-D-L.dcm', 'C18005B_0000130-Anonymized-202206060825-D-L.dcm', 'C19005B_0000492-Anonymized-202106081343-D-R.dcm', 'C20001D_0002963-Anonymized-202108110941-D-R.dcm', 'C19004A_0002584-Anonymized-202107081641-D-L.dcm', 'C19004A_0004299-Anonymized-202209261637-D-R.dcm', 'C19004A_0002990-Anonymized-202108091614-D-R.dcm', 'C19007_0002338-Anonymized-202008201456-D-L.dcm', 'C16002A_0000462-Anonymized-202107190924-D-L.dcm', 'C20004C_0000080-Anonymized-202007081530-D-R.dcm', 'C16004B_0000284-Anonymized-202108201052-D-L.dcm', 'C16004B_0000201-Anonymized-202108170910-D-L.dcm', 'C16004B_0000099-Anonymized-202108111320-D-L.dcm', 'C18002A_0000108-Anonymized-202007091723-D-L.dcm', 'C20004_0000913-Anonymized-202005301058-D-L.dcm', 'C20003_0001064-Anonymized-202007201406-D-R.dcm', 'C16004_0000031-Anonymized-202105311122-D-R.dcm', 'C20004C_0000048-Anonymized-202007080919-D-L.dcm', 'C16002A_0000462-Anonymized-202107190927-D-R.dcm', 'C20004D_0000137-Anonymized-202007241640-D-L.dcm', 'C20004D_0000345-Anonymized-202007301753-D-L.dcm', 'C20004C_0000312-Anonymized-202007161121-D-L.dcm', 'C20004C_0000223-Anonymized-202007140851-D-L.dcm', 'C20004_0000208-Anonymized-202005201003-D-L.dcm', 'C20004B_0000467-Anonymized-202007041040-D-L.dcm', 'C20004_0000377-Anonymized-202005221602-D-R.dcm', 'C20004B_0000412-Anonymized-202007031050-D-R.dcm', 'C16002A_0000478-Anonymized-202107200840-D-R.dcm', 'C20003_0000814-Anonymized-202007071435-D-L.dcm', 'C20004D_0000119-Anonymized-202007241434-D-R.dcm', 'C20003_0000779-Anonymized-202007061434-D-R.dcm', 'C20003_0001064-Anonymized-202007201403-D-L.dcm', 'C20004D_0000321-Anonymized-202007301530-D-L.dcm', 'C20004_0000423-Anonymized-202005231141-D-L.dcm', 'C16004_0000548-Anonymized-202106141001-D-R.dcm', 'C19002B_0000354-Anonymized-202106211136-D-R.dcm', 'C20001_0000245-Anonymized-202006091231-D-L.dcm', 'C20004B_0000123-Anonymized-202006251004-D-R.dcm', 'C18004B_0000119-Anonymized-202108281153-D-R.dcm', 'C18006B_0000056-Anonymized-202007290824-D-R.dcm', 'C20001_0000277-Anonymized-202006101332-D-R.dcm']
 
+# dcm_names = ['']
 
 for i in range(len(dcm_names)):
-    input_path = "D:\\project\\BBN\\pngs-all(V2)\\" + dcm_names[i][:-4] + ".png" 
+    input_path = "D:\\data\\pngs(V3)\\" + dcm_names[i][:-4] + ".png" 
 
-    # # 原图
-    # output_path = "D:\\project\\BBN\\pngs-data-pro(V2)\\" + dcm_names[i][:-4] + "-00-000000.png" 
+    # # # # 原图
+    # output_path = "D:\\data\\test4-18\\" + dcm_names[i][:-4] + "-00-000000.png" 
     # origin_image(input_path, output_path)
     # print(f"图片已保存为: {output_path}")
 
     # # 水平旋转
-    # output_path = "D:\\project\\BBN\\pngs-data-pro(V2)\\" + dcm_names[i][:-4] + "-01-000000.png" 
+    # output_path = "D:\\data\\test4-18\\" + dcm_names[i][:-4] + "-01-000000.png" 
     # flip_image(input_path, output_path)
     # print(f"图片已保存为: {output_path}")
 
     # # 亮度1.2
-    # output_path = "D:\\project\\BBN\\pngs-data-pro(V2)\\" + dcm_names[i][:-4] + "-02-000000.png" 
+    # output_path = "D:\\data\\test4-18\\" + dcm_names[i][:-4] + "-02-000000.png" 
     # adjust_brightness(input_path, output_path)
     # print(f"图片已保存为: {output_path}")
 
     # # 亮度1.5
-    # output_path = "D:\\project\\BBN\\pngs-data-pro(V2)\\" + dcm_names[i][:-4] + "-03-000000.png" 
+    # output_path = "D:\\data\\test4-18\\" + dcm_names[i][:-4] + "-03-000000.png" 
     # adjust_brightness1(input_path, output_path)
     # print(f"图片已保存为: {output_path}")
 
     # # 对比度1.5
-    # output_path = "D:\\project\\BBN\\pngs-data-pro(V2)\\" + dcm_names[i][:-4] + "-04-000000.png" 
+    # output_path = "D:\\data\\test4-18\\" + dcm_names[i][:-4] + "-04-000000.png" 
     # adjust_contrast(input_path, output_path)
     # print(f"图片已保存为: {output_path}")
 
 
     # # 颜色1.5
-    # output_path = "D:\\project\\BBN\\pngs-data-pro(V2)\\" + dcm_names[i][:-4] + "-05-000000.png" 
+    # output_path = "D:\\data\\test4-18\\" + dcm_names[i][:-4] + "-05-000000.png" 
     # adjust_color(input_path, output_path)
     # print(f"图片已保存为: {output_path}")
 
     # # 模糊1.2
-    # output_path = "D:\\project\\BBN\\pngs-data-pro(V2)\\" + dcm_names[i][:-4] + "-06-000000.png" 
+    # output_path = "D:\\data\\test4-18\\" + dcm_names[i][:-4] + "-06-000000.png" 
     # blur_image(input_path, output_path)
     # print(f"图片已保存为: {output_path}")
 
+
+
     # # mixup 0.4（在2000中找61个，61 + 61中找20个）
-    # numbers1 = np.random.choice(2000, 61, replace=False)
-    # numbers2 = np.delete(np.arange(2000,2062), i)
+    # # numbers1 = np.random.choice(2000, 61, replace=False)
+    # # numbers2 = np.delete(np.arange(2000,2062), i)
+    # numbers1 = np.random.choice(2000, 89, replace=False)
+    # numbers2 = np.delete(np.arange(2000,2089), i)
     # random_numbers = np.concatenate((numbers1, numbers2))
-    # random_selections = np.random.choice(random_numbers, 20, replace=False)  # replace=False 表示不重复选择
+    # random_selections = np.random.choice(random_numbers, 2, replace=False)  # replace=False 表示不重复选择(20)
 
     # for random_selection in random_selections:
     #     str_num = str(random_selection).zfill(6)
@@ -201,13 +209,13 @@ for i in range(len(dcm_names)):
     #     print(f"图片已保存为: {output_path}")
 
     # # 饱和度 1.2
-    # output_path = "D:\\project\\BBN\\pngs-data-pro(V2)\\" + dcm_names[i][:-4] + "-08-000000.png" 
+    # output_path = "D:\\data\\test4-18\\" + dcm_names[i][:-4] + "-08-000000.png" 
     # adjust_random_saturation(input_path, output_path)
     # print(f"图片已保存为: {output_path}")
 
 
     # # 小噪声
-    # output_path = "D:\\project\\BBN\\pngs-data-pro(V2)\\" + dcm_names[i][:-4] + "-09-000000.png" 
+    # output_path = "D:\\data\\test4-18\\" + dcm_names[i][:-4] + "-09-000000.png" 
     # add_small_noise(input_path, output_path)
     # print(f"图片已保存为: {output_path}")
 

@@ -1,0 +1,86 @@
+2025-03-12 21:27:35,404: INFO: [resnet.py:183]: ResNet: All params loaded
+2025-03-12 21:27:35,440: INFO: [wsdan.py:97]: WSDAN: using resnet50 as feature extractor, num_classes: 2, num_attentions: 32
+2025-03-12 21:27:35,565: INFO: [train.py:1525]: Network weights save to ./FGVC/CUB-200-2011/ckpt - VV3 - storage/1/
+2025-03-12 21:27:35,606: INFO: [train.py:1558]: Start training: Total epochs: 160, Batch size: 16, Training size: 2979, Validation size: 2034
+2025-03-12 21:27:35,606: INFO: [train.py:1560]: 
+2025-03-12 21:27:35,606: INFO: [train.py:1568]: Epoch 001, Learning Rate 0.0001
+2025-03-12 22:19:26,037: INFO: [train.py:1733]: Train: , Time 3110.43
+2025-03-12 22:19:26,037: INFO: [train.py:1734]: Train completed. Final metrics: 
+2025-03-12 22:20:29,503: INFO: [train.py:1813]: Valid: Val Loss 0.1038, Val Acc (98.18, 98.18), Time 63.46
+2025-03-12 22:20:29,504: INFO: [train.py:1815]: 
+2025-03-12 22:20:33,081: INFO: [train.py:1568]: Epoch 002, Learning Rate 0.0001
+2025-03-12 23:03:40,375: INFO: [train.py:1733]: Train: , Time 2587.29
+2025-03-12 23:03:40,375: INFO: [train.py:1734]: Train completed. Final metrics: 
+2025-03-12 23:04:40,833: INFO: [train.py:1813]: Valid: Val Loss 0.1111, Val Acc (98.33, 98.33), Time 60.46
+2025-03-12 23:04:40,833: INFO: [train.py:1815]: 
+2025-03-12 23:04:44,012: INFO: [train.py:1568]: Epoch 003, Learning Rate 9e-05
+2025-03-12 23:44:41,662: INFO: [train.py:1733]: Train: , Time 2397.65
+2025-03-12 23:44:41,662: INFO: [train.py:1734]: Train completed. Final metrics: 
+2025-03-12 23:49:27,170: INFO: [train.py:1813]: Valid: Val Loss 0.1238, Val Acc (98.33, 98.33), Time 285.51
+2025-03-12 23:49:27,170: INFO: [train.py:1815]: 
+2025-03-12 23:49:29,206: INFO: [train.py:1568]: Epoch 004, Learning Rate 9e-05
+2025-03-13 00:29:27,482: INFO: [train.py:1733]: Train: , Time 2398.28
+2025-03-13 00:29:27,482: INFO: [train.py:1734]: Train completed. Final metrics: 
+2025-03-13 00:33:48,900: INFO: [train.py:1813]: Valid: Val Loss 0.1786, Val Acc (98.33, 98.33), Time 261.42
+2025-03-13 00:33:48,900: INFO: [train.py:1815]: 
+2025-03-13 00:33:51,009: INFO: [train.py:1568]: Epoch 005, Learning Rate 8.1e-05
+2025-03-13 01:13:50,882: INFO: [train.py:1733]: Train: , Time 2399.87
+2025-03-13 01:13:50,882: INFO: [train.py:1734]: Train completed. Final metrics: 
+2025-03-13 01:18:12,651: INFO: [train.py:1813]: Valid: Val Loss 0.2366, Val Acc (98.33, 98.33), Time 261.77
+2025-03-13 01:18:12,651: INFO: [train.py:1815]: 
+2025-03-13 01:18:14,986: INFO: [train.py:1568]: Epoch 006, Learning Rate 8.1e-05
+2025-03-13 01:58:16,783: INFO: [train.py:1733]: Train: , Time 2401.79
+2025-03-13 01:58:16,783: INFO: [train.py:1734]: Train completed. Final metrics: 
+2025-03-13 02:02:38,816: INFO: [train.py:1813]: Valid: Val Loss 0.2029, Val Acc (98.33, 98.33), Time 262.03
+2025-03-13 02:02:38,816: INFO: [train.py:1815]: 
+2025-03-13 02:02:41,189: INFO: [train.py:1568]: Epoch 007, Learning Rate 7.29e-05
+2025-03-13 02:42:39,534: INFO: [train.py:1733]: Train: , Time 2398.34
+2025-03-13 02:42:39,534: INFO: [train.py:1734]: Train completed. Final metrics: 
+2025-03-13 02:47:02,077: INFO: [train.py:1813]: Valid: Val Loss 0.2296, Val Acc (98.33, 98.33), Time 262.54
+2025-03-13 02:47:02,077: INFO: [train.py:1815]: 
+2025-03-13 02:47:04,725: INFO: [train.py:1568]: Epoch 008, Learning Rate 7.29e-05
+2025-03-13 03:27:03,799: INFO: [train.py:1733]: Train: , Time 2399.07
+2025-03-13 03:27:03,799: INFO: [train.py:1734]: Train completed. Final metrics: 
+2025-03-13 03:31:25,641: INFO: [train.py:1813]: Valid: Val Loss 0.2300, Val Acc (98.33, 98.33), Time 261.84
+2025-03-13 03:31:25,641: INFO: [train.py:1815]: 
+2025-03-13 03:31:27,792: INFO: [train.py:1568]: Epoch 009, Learning Rate 6.561e-05
+2025-03-13 04:11:25,377: INFO: [train.py:1733]: Train: , Time 2397.58
+2025-03-13 04:11:25,377: INFO: [train.py:1734]: Train completed. Final metrics: 
+2025-03-13 04:15:48,785: INFO: [train.py:1813]: Valid: Val Loss 0.1100, Val Acc (98.33, 98.33), Time 263.41
+2025-03-13 04:15:48,785: INFO: [train.py:1815]: 
+2025-03-13 04:15:50,650: INFO: [train.py:1568]: Epoch 010, Learning Rate 6.561e-05
+2025-03-13 04:55:52,659: INFO: [train.py:1733]: Train: , Time 2402.01
+2025-03-13 04:55:52,659: INFO: [train.py:1734]: Train completed. Final metrics: 
+2025-03-13 05:00:14,329: INFO: [train.py:1813]: Valid: Val Loss 0.1307, Val Acc (98.33, 98.33), Time 261.67
+2025-03-13 05:00:14,329: INFO: [train.py:1815]: 
+2025-03-13 05:00:16,314: INFO: [train.py:1568]: Epoch 011, Learning Rate 5.9049e-05
+2025-03-13 05:40:15,909: INFO: [train.py:1733]: Train: , Time 2399.59
+2025-03-13 05:40:15,909: INFO: [train.py:1734]: Train completed. Final metrics: 
+2025-03-13 05:44:38,384: INFO: [train.py:1813]: Valid: Val Loss 0.2423, Val Acc (98.33, 98.33), Time 262.47
+2025-03-13 05:44:38,384: INFO: [train.py:1815]: 
+2025-03-13 05:44:39,852: INFO: [train.py:1568]: Epoch 012, Learning Rate 5.9049e-05
+2025-03-13 06:24:39,034: INFO: [train.py:1733]: Train: , Time 2399.18
+2025-03-13 06:24:39,034: INFO: [train.py:1734]: Train completed. Final metrics: 
+2025-03-13 06:29:01,086: INFO: [train.py:1813]: Valid: Val Loss 0.2411, Val Acc (98.33, 98.33), Time 262.05
+2025-03-13 06:29:01,086: INFO: [train.py:1815]: 
+2025-03-13 06:29:02,928: INFO: [train.py:1568]: Epoch 013, Learning Rate 5.31441e-05
+2025-03-13 07:09:01,090: INFO: [train.py:1733]: Train: , Time 2398.16
+2025-03-13 07:09:01,090: INFO: [train.py:1734]: Train completed. Final metrics: 
+2025-03-13 07:13:22,864: INFO: [train.py:1813]: Valid: Val Loss 0.1317, Val Acc (98.33, 98.33), Time 261.77
+2025-03-13 07:13:22,864: INFO: [train.py:1815]: 
+2025-03-13 07:13:25,086: INFO: [train.py:1568]: Epoch 014, Learning Rate 5.31441e-05
+2025-03-13 07:53:24,283: INFO: [train.py:1733]: Train: , Time 2399.19
+2025-03-13 07:53:24,283: INFO: [train.py:1734]: Train completed. Final metrics: 
+2025-03-13 07:57:46,573: INFO: [train.py:1813]: Valid: Val Loss 0.1954, Val Acc (98.33, 98.33), Time 262.29
+2025-03-13 07:57:46,573: INFO: [train.py:1815]: 
+2025-03-13 07:57:48,646: INFO: [train.py:1568]: Epoch 015, Learning Rate 4.78297e-05
+2025-03-13 08:37:51,651: INFO: [train.py:1733]: Train: , Time 2403.00
+2025-03-13 08:37:51,651: INFO: [train.py:1734]: Train completed. Final metrics: 
+2025-03-13 08:42:13,743: INFO: [train.py:1813]: Valid: Val Loss 0.1503, Val Acc (98.33, 98.33), Time 262.09
+2025-03-13 08:42:13,743: INFO: [train.py:1815]: 
+2025-03-13 08:42:16,639: INFO: [train.py:1568]: Epoch 016, Learning Rate 4.78297e-05
+2025-03-13 09:22:15,187: INFO: [train.py:1733]: Train: , Time 2398.55
+2025-03-13 09:22:15,187: INFO: [train.py:1734]: Train completed. Final metrics: 
+2025-03-13 09:26:38,071: INFO: [train.py:1813]: Valid: Val Loss 0.1222, Val Acc (98.33, 98.33), Time 262.88
+2025-03-13 09:26:38,072: INFO: [train.py:1815]: 
+2025-03-13 09:26:40,275: INFO: [train.py:1568]: Epoch 017, Learning Rate 4.30467e-05

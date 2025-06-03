@@ -1,7 +1,6 @@
 *.iml
 *.xml
 *.ckpt
-*.png
-*.jpg
 *.txt
-*.xlsx
+*.jpg
+*.png

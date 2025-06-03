@@ -26,7 +26,7 @@ assert torch.cuda.is_available()
 
 
 
-# # ------------------------- V1（裁剪后，无mask）-------------------------
+# # # ------------------------- V1（裁剪后，无mask）-------------------------
 # version = config.version
 # if config.version == '1':
 #     version = '1'
@@ -36,6 +36,8 @@ assert torch.cuda.is_available()
 #     version = '3'
 # elif config.version == '4':
 #     version = '3'
+# elif config.version == 'V':
+#     version = 'V'
 
 # os.environ['CUDA_VISIBLE_DEVICES'] = config.GPU
 # device = torch.device("cuda")
@@ -251,8 +253,6 @@ assert torch.cuda.is_available()
 # #
 # #
 # #
-# #
-# #
 
 
 
@@ -269,7 +269,11 @@ assert torch.cuda.is_available()
 
 
 
-# # #  ------------------------- V2（裁剪后，有mask）-------------------------
+
+
+
+
+# # #   ------------------------- V2（裁剪后，有mask）-------------------------
 # version = config.version
 # if config.version == '1':
 #     version = '1'
@@ -279,6 +283,8 @@ assert torch.cuda.is_available()
 #     version = '3'
 # elif config.version == '4':
 #     version = '3'
+# elif config.version == 'V':
+#     version = 'V'
 # os.environ['CUDA_VISIBLE_DEVICES'] = config.GPU
 # device = torch.device("cuda")
 # torch.backends.cudnn.benchmark = True
@@ -296,17 +302,16 @@ assert torch.cuda.is_available()
 
 # def generate_heatmap(attention_maps):
 #     heat_attention_maps = []
-#     heat_attention_maps.append(attention_maps[:, 0, ...])  # R
-#     heat_attention_maps.append(attention_maps[:, 0, ...] * (attention_maps[:, 0, ...] < 0.5).float() + \
-#                                (1. - attention_maps[:, 0, ...]) * (attention_maps[:, 0, ...] >= 0.5).float())  # G
-#     heat_attention_maps.append(1. - attention_maps[:, 0, ...])  # B
+#     heat_attention_maps.append(attention_maps[:, 0, ...]) # R
+#     heat_attention_maps.append(attention_maps[:, 0, ...] * (attention_maps[:, 0, ...] < 0.5).float() + (1. - attention_maps[:, 0, ...]) * (attention_maps[:, 0, ...] >= 0.5).float())   # G
+#     heat_attention_maps.append(1. - attention_maps[:, 0, ...]) # B
 #     return torch.stack(heat_attention_maps, dim=1)
 
 # # 过滤测试集
 # def filter_number1_by_number2(filename):
 #     result = []
 #     # 打开文件并逐行读取
-#     with open(filename,  'r', encoding='utf-8') as file:
+#     with open(filename,   'r', encoding='utf-8') as file:
 #         for line in file:
 #             # 将每行的两个数拆分
 #             number1, number2 = map(int, line.split())
@@ -318,28 +323,27 @@ assert torch.cuda.is_available()
 # # 找到测试集的名称.dcm
 # def filter_and_strip_prefix(filename, numbers):
 #     result = []
-    
+
 #     # 定义要去掉的前缀
 #     prefixes = ['000.no_tumor/', '001.tumor/']
-    
+
 #     # 打开文件并逐行读取
-#     with open(filename,  'r', encoding='utf-8') as file:
+#     with open(filename,   'r', encoding='utf-8') as file:
 #         for line in file:
 #             # 将每行的 number1 和 string2 分开
 #             number1, string2 = line.split(maxsplit=1)
-#             number1 = int(number1)  # 转换 number1 为整数
-            
+#             number1 = int(number1)   # 转换 number1 为整数
+
 #             # 检查 number1 是否在给定的 numbers 列表中
 #             if number1 in numbers:
 #                 # 去掉 string2 的前缀
 #                 for prefix in prefixes:
 #                     if string2.startswith(prefix):
-#                         string2 = string2[len(prefix):]  # 去掉前缀
-#                         break  # 如果匹配到前缀就不再继续检查
-                
+#                         string2 = string2[len(prefix):]   # 去掉前缀
+#                         break   # 如果匹配到前缀就不再继续检查
 #                 # 去除可能的换行符并保存结果
 #                 result.append(string2.strip()[:-4] + '.dcm')
-    
+
 #     return result
 
 
@@ -362,10 +366,10 @@ assert torch.cuda.is_available()
 #     ##################################
 #     _, test_dataset = get_trainval_datasets(config.tag, resize=config.image_size)
 #     test_loader = DataLoader(test_dataset, batch_size=config.batch_size, shuffle=False,
-#                              num_workers=2, pin_memory=True)
-    
-#     name = 'all'  # train0 train val test
-#     filtered_numbers = filter_number1_by_number2('D:\\project\\WS-DAN\\datasets\\CUB_200_2011(V' + version + ')\\train_test_split' + config.choose_name + '.txt')  # “测试集”索引
+#                               num_workers=2, pin_memory=True)
+
+#     name = 'all'   # train0 train val test
+#     filtered_numbers = filter_number1_by_number2('D:\\project\\WS-DAN\\datasets\\CUB_200_2011(V' + version + ')\\train_test_split' + config.choose_name + '.txt')   # “测试集”索引
 #     filtered_data = filter_and_strip_prefix('D:\\project\\WS-DAN\\datasets\\CUB_200_2011(V' + version + ')\\images.txt', filtered_numbers)
 
 #     # print(len(filtered_numbers))
@@ -408,8 +412,8 @@ assert torch.cuda.is_available()
 
 #     all_targets = []
 #     all_predictions = []
-#  #   all_predictions_raw = []
-#  #   all_predictions_crop = []
+#   #   all_predictions_raw = []
+#   #   all_predictions_crop = []
 #     net.eval()
 #     with torch.no_grad():
 #         pbar = tqdm(total=len(test_loader), unit=' batches')
@@ -430,13 +434,13 @@ assert torch.cuda.is_available()
 #             y_pred_crop, _, _ = net(crop_image)
 #             y_pred = (y_pred_raw + y_pred_crop) / 2.
 
-#   #          _, predicted_raw = torch.max(y_pred_raw, 1)
-#   #          _, predicted_crop = torch.max(y_pred_crop, 1)
+#   #           _, predicted_raw = torch.max(y_pred_raw, 1)
+#   #           _, predicted_crop = torch.max(y_pred_crop, 1)
 #             _, predicted = torch.max(y_pred, 1)
 
 #             all_targets.append(y.cpu().numpy())
-#    #         all_predictions_raw.append(predicted_raw.cpu().numpy())
-#    #         all_predictions_crop.append(predicted_crop.cpu().numpy())
+#     #         all_predictions_raw.append(predicted_raw.cpu().numpy())
+#     #         all_predictions_crop.append(predicted_crop.cpu().numpy())
 #             all_predictions.append(predicted.cpu().numpy())
 
 
@@ -473,21 +477,21 @@ assert torch.cuda.is_available()
 #             # combined_string = f"{batch_info} | {batch_info1}"
 #             pbar.update()
 #             pbar.set_postfix_str(batch_info)
-#             # logging.info(combined_string)  # 完整信息记录在日志里
+#             # logging.info(combined_string)   # 完整信息记录在日志里
 
 #         # 合并所有批次的结果
 #         all_targets = np.concatenate(all_targets)
 #         all_predictions = np.concatenate(all_predictions)
-#   #      all_predictions_raw = np.concatenate(all_predictions_raw)
-#   #      all_predictions_crop = np.concatenate(all_predictions_crop)
+#   #       all_predictions_raw = np.concatenate(all_predictions_raw)
+#   #       all_predictions_crop = np.concatenate(all_predictions_crop)
 
 
 #         # 将目标和预测保存到 Excel
 #         df = pd.DataFrame({
 #             'Target': all_targets,
 #             'Prediction': all_predictions,
-#    #         'Prediction_raw': all_predictions_raw,
-#    #         'Prediction_crop': all_predictions_crop,
+#     #         'Prediction_raw': all_predictions_raw,
+#     #         'Prediction_crop': all_predictions_crop,
 
 
 #         })
@@ -497,17 +501,14 @@ assert torch.cuda.is_available()
 #         # print("所有目标:", all_targets)
 #         # print("所有预测:", all_predictions)
 #         resulting2(config.choose_name + 'pred', filtered_data, all_targets, all_predictions)
-# #        resulting2(name + 'raw', filtered_data, all_targets, all_predictions_raw)
-#  #       resulting2(name + 'crop', filtered_data, all_targets, all_predictions_crop)
+# #         resulting2(name + 'raw', filtered_data, all_targets, all_predictions_raw)
+#   #       resulting2(name + 'crop', filtered_data, all_targets, all_predictions_crop)
 #         pbar.close()
 #         # logging.info("看我看我看我: %s", batch_info1)
 
 
 # if __name__ == '__main__':
 #     main()
-
-
-
 
 
 
@@ -537,6 +538,8 @@ assert torch.cuda.is_available()
 #     version = '3'
 # elif config.version == '4':
 #     version = '3'
+# elif config.version == 'V':
+#     version = 'V'
 # os.environ['CUDA_VISIBLE_DEVICES'] = config.GPU
 # device = torch.device("cuda")
 # torch.backends.cudnn.benchmark = True
@@ -801,6 +804,8 @@ elif config.version == '3':
     version = '3'
 elif config.version == '4':
     version = '3'
+else:
+    version = config.version[1:]
 
 os.environ['CUDA_VISIBLE_DEVICES'] = config.GPU
 device = torch.device("cuda")
@@ -1007,7 +1012,7 @@ def main():
 
         # 将目标和预测保存到 Excel
         df = pd.DataFrame({
-            'Target': all_targets,
+            'tumor_nature': all_targets,
             'Prediction': all_predictions,
      #       'Prediction_raw': all_predictions_raw,
      #       'Prediction_crop': all_predictions_crop,

@@ -3,10 +3,10 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, recall_score, roc_auc_score, f1_score
 
 # 示例数据（请替换为你的tp, tn, fp, fn值）
-tp = 48
-tn = 448
-fp = 552
-fn = 18
+tp = 3
+tn = 747
+fp = 253
+fn = 14
 
 # 计算混淆矩阵
 cm = np.array([[tn, fp], [fn, tp]])
@@ -35,11 +35,10 @@ plt.savefig('confusion_matrix.png')
 plt.show()
 
 # 计算相关指标
-
-ACC = (tp + tn) / (tp + tn + fp + fn) if (tp + tn + fp + fn) > 0 else 0
-SEN = tp / (tp + fn) if (tp + fn) > 0 else 0
-SPE = tn / (tn + fp) if (tn + fp) > 0 else 0
-PRE = tp / (tp + fp) if (tp + fp) > 0 else 0
+ACC = (tn + tp) / (tn + tp + fn + fp)
+SPE = tn / (tn + fp)  # 特异度
+SEN = tp / (tp + fn)  # 灵敏度
+PRE = precision_score([0] * tn + [1] * tp + [0] * fp + [1] * fn, [0] * (tn + fp) + [1] * (tp + fn))
 AUC = roc_auc_score([0] * tn + [1] * tp + [0] * fp + [1] * fn, [0] * (tn + fp) + [1] * (tp + fn))  # 示例AUC计算
 f1 = f1_score([0] * tn + [1] * tp + [0] * fp + [1] * fn, [0] * (tn + fp) + [1] * (tp + fn))
 

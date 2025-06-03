@@ -1,6 +1,14 @@
 import os
 import pandas as pd
 
+df = pd.read_excel("D:\\data\\tttt1.xlsx")
+tumor_names = df[df['tumor_nature'] == 1]['dcm_name'].tolist()
+positive_names = df[df['is_positive'] == 1]['dcm_name'].tolist()
+
+# print(len(tumor_names))
+# print(len(positive_names))
+
+
 def list_files_to_dataframe(folder_path):
     """
     将指定文件夹中的所有文件按名称顺序写入到 DataFrame 中。
@@ -10,14 +18,22 @@ def list_files_to_dataframe(folder_path):
     """
     # 获取文件夹中的所有文件名，并按名称排序
     files = sorted(os.listdir(folder_path))
+    tumors = [0] * len(files)
+    positives = [0] * len(files)
+
+    for index, f in enumerate(files):
+        if f[:-14] + ".dcm" in tumor_names:
+            tumors[index] = 1
+        if f[:-14] + ".dcm" in positive_names:
+            positives[index] = 1
     
-    # 创建 DataFrame
-    df = pd.DataFrame(files, columns=['dcm_name'])
-    df.to_excel("1.xlsx",index=False)
+    df = pd.DataFrame({'dcm_name': files, 'tumor_nature': tumors, 'is_positive': positives})
+
+    df.to_excel("D:\\data\\tttt1-1.xlsx",index=False)
     
     return df
 
 # 示例用法
-folder_path = "D:\\project\\BBN\\pngs-data-pro(V2)"
+folder_path = "D:\\data\\test4-18" 
 df = list_files_to_dataframe(folder_path)
 

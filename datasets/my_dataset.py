@@ -30,6 +30,8 @@ import config
 #     version = '3'
 # elif config.version == '4':
 #     version = '3'
+# elif config.version == 'V':
+#     version = 'V'
 
 # DATAPATH = 'D:\\project\\WS-DAN\\datasets\\CUB_200_2011(V' + version + ')'
 # image_path = {}
@@ -167,6 +169,8 @@ import config
 #     version = '3'
 # elif config.version == '4':
 #     version = '3'
+# elif config.version == 'V':
+#     version = 'V'
 # DATAPATH = 'D:\\project\\WS-DAN\\datasets\\CUB_200_2011(V' + version + ')'
 # image_path = {}
 # image_label = {}
@@ -255,8 +259,8 @@ import config
 #         # print(image_path)
 #         image = Image.open(os.path.join(DATAPATH, 'images', self.image_path[image_id])).convert('RGB')  # (C, H, W)
 #         image = self.transform(image)
-#         mask_img1 = Image.open(os.path.join('D:/data/masks-all-0(V' + version + ')', self.mask_path[image_id])).convert('L')
-#         mask_img2 = Image.open(os.path.join('D:/data/masks-all-1(V' + version + ')', self.mask_path[image_id])).convert('L')
+#         mask_img1 = Image.open(os.path.join('D:/data/masks-all-0(V' + "1" + ')', self.mask_path[image_id])).convert('L')
+#         mask_img2 = Image.open(os.path.join('D:/data/masks-all-1(V' + "1" + ')', self.mask_path[image_id])).convert('L')
 
 #         new_size =(int(self.resize[0]), int(self.resize[1]))
 #         mask_img1 = mask_img1.resize(new_size)
@@ -325,6 +329,9 @@ import config
 #     version = '3'
 # elif config.version == '4':
 #     version = '3'
+# elif config.version == 'V':
+#     version = 'V'
+
 # DATAPATH = 'D:\\project\\WS-DAN\\datasets\\CUB_200_2011(V' + version + ')'
 # image_path = {}
 # image_label = {}
@@ -462,6 +469,8 @@ elif config.version == '3':
     version = '3'
 elif config.version == '4':
     version = '3'
+else:
+    version = config.version[1:]
 
 DATAPATH = 'D:\\project\\WS-DAN\\datasets\\CUB_200_2011(V' + version  +')'
 image_path = {}
@@ -553,8 +562,12 @@ class MyDataset(Dataset):
         image = self.transform(image)
 
 
-        mask_img1 = Image.open(os.path.join('D:/data/masks-all-0(V' + version + ')', self.mask_path[image_id])).convert('L')
-        mask_img2 = Image.open(os.path.join('D:/data/masks-all-1(V' + version + ')', self.mask_path[image_id])).convert('L')
+        # mask_img1 = Image.open(os.path.join('D:/data/masks-all-0(V' + version + ')', self.mask_path[image_id])).convert('L')
+        # mask_img2 = Image.open(os.path.join('D:/data/masks-all-1(V' + version + ')', self.mask_path[image_id])).convert('L')
+
+        mask_img1 = Image.open(os.path.join('D:/data/masks-all-0(V' + '3' + ')', self.mask_path[image_id])).convert('L')
+        mask_img2 = Image.open(os.path.join('D:/data/masks-all-1(V' + '3' + ')', self.mask_path[image_id])).convert('L')
+
 
         new_size =(int(self.resize[0]), int(self.resize[1]))
         mask_img1 = mask_img1.resize(new_size)
@@ -564,6 +577,8 @@ class MyDataset(Dataset):
 
         mask_np_bin = (mask_np2 == 0) & (mask_np1 == 255)   # 原图masks反转，值为0的区域为True，255的区域为False
 
+        # # 只放一个mask
+        mask_np_bin = mask_np1 == 255
 
         mask_tensor = torch.tensor(mask_np_bin, dtype=torch.bool)  # 转换为 PyTorch 张量
         mask_tensor = mask_tensor.unsqueeze(0)  # 在通道维度上增加一个维度

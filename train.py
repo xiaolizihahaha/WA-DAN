@@ -1387,6 +1387,7 @@ assert torch.cuda.is_available()
 
 
 # # ------------------------- V4（裁剪前，有mask）-------------------------
+torch.cuda.empty_cache()  # 清理缓存
 version = config.version
 if config.version == '1':
     version = '1'
@@ -1396,6 +1397,8 @@ elif config.version == '3':
     version = '3'
 elif config.version == '4':
     version = '3'
+else:
+    version = 'VV3'
 
 os.environ['CUDA_VISIBLE_DEVICES'] = config.GPU
 device = torch.device("cuda")
@@ -1585,13 +1588,14 @@ def main():
             scheduler.step()
 
         callback.on_epoch_end(logs, net, feature_center=feature_center)
-        torch.save({
-            'epoch': epoch + 1,
-            'state_dict': net.state_dict(),
-            'optimizer': optimizer.state_dict(),
-            'feature_center': feature_center,
-            'logs': logs
-        }, os.path.join(config.save_dir, f'model_epoch_{epoch + 1}.ckpt'))
+        if epoch % 1 == 0:
+            torch.save({
+                'epoch': epoch + 1,
+                'state_dict': net.state_dict(),
+                'optimizer': optimizer.state_dict(),
+                'feature_center': feature_center,
+                'logs': logs
+            }, os.path.join(config.save_dir, f'model_epoch_{epoch + 1}.ckpt'))
 
         pbar.close()
 
